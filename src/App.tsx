@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { useState } from 'react';
 import Welcome from './components/Welcome';
 import Test from './components/Test';
 import Results from './components/Results';
@@ -45,8 +44,6 @@ const Subtitle = styled.p`
 `;
 
 function App() {
-
-
   return (
     <Router>
       <AppContainer>
