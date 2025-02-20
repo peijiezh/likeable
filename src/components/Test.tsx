@@ -1,210 +1,206 @@
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface Question {
   id: number;
   dimension: string;
-  text: string;
+  question: string;
 }
 
-const TestContainer = styled.div`
+const Container = styled.div`
   max-width: 800px;
-  margin: 0 auto;
+  margin: 2rem auto;
   padding: 2rem;
 `;
 
 const QuestionCard = styled.div`
-  background-color: white;
-  border-radius: 12px;
+  background: white;
+  border-radius: 8px;
   padding: 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
 `;
 
-const QuestionText = styled.h2`
+const Question = styled.h2`
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
   font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 2rem;
-  line-height: 1.4;
 `;
 
 const OptionsContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
-  margin-bottom: 2rem;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
 `;
 
 const Option = styled.button<{ selected?: boolean }>`
-  background-color: ${props => props.selected ? '#007AFF' : '#f5f5f7'};
-  color: ${props => props.selected ? 'white' : '#333'};
-  border: none;
   padding: 1rem;
-  border-radius: 8px;
+  border: 2px solid ${props => props.selected ? '#3498db' : '#ddd'};
+  border-radius: 4px;
+  background: ${props => props.selected ? '#ebf5fb' : 'white'};
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s;
 
   &:hover {
-    background-color: ${props => props.selected ? '#0055CC' : '#e5e5e7'};
+    background: #f7f9fa;
   }
-`;
-
-const Progress = styled.div`
-  background-color: #f5f5f7;
-  border-radius: 8px;
-  height: 8px;
-  margin-bottom: 2rem;
-  overflow: hidden;
-`;
-
-const ProgressBar = styled.div<{ progress: number }>`
-  background-color: #007AFF;
-  height: 100%;
-  width: ${props => props.progress}%;
-  transition: width 0.3s ease;
 `;
 
 const NavigationButtons = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  margin-top: 2rem;
 `;
 
 const NavButton = styled.button`
-  background-color: #007AFF;
+  padding: 0.8rem 1.5rem;
+  background-color: #3498db;
   color: white;
   border: none;
-  padding: 1rem 2rem;
-  border-radius: 8px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.3s;
 
-  &:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+  &:hover {
+    background-color: #2980b9;
   }
 
-  &:not(:disabled):hover {
-    background-color: #0055CC;
+  &:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
   }
 `;
 
-function Test() {
+const ProgressBar = styled.div`
+  width: 100%;
+  height: 8px;
+  background-color: #eee;
+  border-radius: 4px;
+  margin-bottom: 2rem;
+`;
+
+const Progress = styled.div<{ width: number }>`
+  width: ${props => props.width}%;
+  height: 100%;
+  background-color: #3498db;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+`;
+
+const Test: React.FC = () => {
   const navigate = useNavigate();
-  const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<number[]>(new Array(20).fill(-1));
+  const [questions, setQuestions] = useState<Question[]>([]);
 
   useEffect(() => {
     const loadQuestions = async () => {
       try {
         const response = await fetch('/questions.csv');
         const csvText = await response.text();
-        
-        // Skip header row and parse CSV
-        const rows = csvText.split('\n').slice(1);
-        const parsedQuestions = rows
-          .filter(row => row.trim() !== '')
-          .map(row => {
-            const [id, dimension, text] = row.split(',').map(field => 
-              field.replace(/^"(.*)"$/, '$1')
-            );
-            return {
-              id: parseInt(id),
-              dimension,
-              text
-            };
+        const lines = csvText.split('\n').slice(1); // Skip header
+        const parsedQuestions = lines
+          .filter(line => line.trim())
+          .map(line => {
+            const [id, dimension, question] = line.split(',').map(str => str.replace(/^"(.*)"$/, '$1'));
+            return { id: parseInt(id), dimension, question };
           });
-
         setQuestions(parsedQuestions);
       } catch (error) {
         console.error('Error loading questions:', error);
       }
     };
-
     loadQuestions();
   }, []);
 
-  const getOptionLabel = (value: number): string => {
-    switch (value) {
-      case 1: return 'Strongly Disagree';
-      case 2: return 'Disagree';
-      case 3: return 'Neutral';
-      case 4: return 'Agree';
-      case 5: return 'Strongly Agree';
-      default: return '';
-    }
-  };
+  const options = [
+    "Strongly Disagree",
+    "Disagree",
+    "Neutral",
+    "Agree",
+    "Strongly Agree"
+  ];
 
-  const handleAnswer = (value: number) => {
+  const handleAnswer = (optionIndex: number) => {
     const newAnswers = [...answers];
-    newAnswers[currentQuestion] = value;
+    newAnswers[currentQuestion] = optionIndex;
     setAnswers(newAnswers);
   };
 
   const handleNext = () => {
     if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(curr => curr + 1);
-    } else {
-      // Navigate to results when all questions are answered
-      navigate('/results', { state: { answers } });
+      setCurrentQuestion(currentQuestion + 1);
+    } else if (questions.length > 0) {
+      const dimensionScores = questions.reduce((acc, q, index) => {
+        const dimension = q.dimension;
+        if (!acc[dimension]) acc[dimension] = [];
+        if (answers[index] !== undefined && answers[index] !== -1) {
+          acc[dimension].push(answers[index]);
+        }
+        return acc;
+      }, {} as Record<string, number[]>);
+
+      if (Object.keys(dimensionScores).length > 0) {
+        navigate('/results', { 
+          state: { 
+            answers,
+            dimensionScores
+          }
+        });
+      } else {
+        console.error('No valid dimension scores calculated');
+      }
     }
   };
 
   const handlePrevious = () => {
     if (currentQuestion > 0) {
-      setCurrentQuestion(curr => curr - 1);
+      setCurrentQuestion(currentQuestion - 1);
     }
   };
 
   if (questions.length === 0) {
-    return <div>Loading questions...</div>;
+    return <Container>Loading questions...</Container>;
   }
 
   const progress = ((currentQuestion + 1) / questions.length) * 100;
 
   return (
-    <TestContainer>
-      <Progress>
-        <ProgressBar progress={progress} />
-      </Progress>
-
+    <Container>
+      <ProgressBar>
+        <Progress width={progress} />
+      </ProgressBar>
       <QuestionCard>
-        <QuestionText>{questions[currentQuestion]?.text}</QuestionText>
+        <Question>{questions[currentQuestion].question}</Question>
         <OptionsContainer>
-          {[1, 2, 3, 4, 5].map((value) => (
+          {options.map((option, index) => (
             <Option
-              key={value}
-              selected={answers[currentQuestion] === value}
-              onClick={() => handleAnswer(value)}
+              key={index}
+              selected={answers[currentQuestion] === index}
+              onClick={() => handleAnswer(index)}
             >
-              {getOptionLabel(value)}
+              {option}
             </Option>
           ))}
         </OptionsContainer>
-
-        <NavigationButtons>
-          <NavButton
-            onClick={handlePrevious}
-            disabled={currentQuestion === 0}
-          >
-            Previous
-          </NavButton>
-          <NavButton
-            onClick={handleNext}
-            disabled={answers[currentQuestion] === -1}
-          >
-            {currentQuestion === questions.length - 1 ? 'Finish' : 'Next'}
-          </NavButton>
-        </NavigationButtons>
       </QuestionCard>
-    </TestContainer>
+      <NavigationButtons>
+        <NavButton
+          onClick={handlePrevious}
+          disabled={currentQuestion === 0}
+        >
+          Previous
+        </NavButton>
+        <NavButton
+          onClick={handleNext}
+          disabled={answers[currentQuestion] === -1}
+        >
+          {currentQuestion === questions.length - 1 ? 'Finish' : 'Next'}
+        </NavButton>
+      </NavigationButtons>
+    </Container>
   );
-}
+};
 
 export default Test;

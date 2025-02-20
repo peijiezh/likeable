@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import styled from '@emotion/styled';
 import Welcome from './components/Welcome';
 import Test from './components/Test';
@@ -43,24 +43,35 @@ const Subtitle = styled.p`
   }
 `;
 
+const Layout = ({ children }: { children: React.ReactNode }) => (
+  <AppContainer>
+    <Header>
+      <Title>Likeability Test</Title>
+      <Subtitle>
+        Discover your personal likeability profile across five key dimensions
+      </Subtitle>
+    </Header>
+    {children}
+  </AppContainer>
+);
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout><Welcome /></Layout>
+  },
+  {
+    path: '/test',
+    element: <Layout><Test /></Layout>
+  },
+  {
+    path: '/results',
+    element: <Layout><Results /></Layout>
+  }
+]);
+
 function App() {
-  return (
-    <Router>
-      <AppContainer>
-        <Header>
-          <Title>Likeability Test</Title>
-          <Subtitle>
-            Discover your personal likeability profile across five key dimensions
-          </Subtitle>
-        </Header>
-        <Routes>
-          <Route path="/" element={<Welcome />} />
-          <Route path="/test" element={<Test />} />
-          <Route path="/results" element={<Results />} />
-        </Routes>
-      </AppContainer>
-    </Router>
-  );
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;
