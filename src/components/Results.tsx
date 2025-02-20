@@ -180,8 +180,16 @@ const Results: React.FC = () => {
     return Math.round((total / (scores.length * 4)) * 100);
   };
 
-  const getDimensionAnalysis = (dimension: string, score: number) => {
-    const analyses = {
+  type DimensionAnalyses = {
+  'Emotional Intelligence': { high: string; medium: string; low: string };
+  'Communication': { high: string; medium: string; low: string };
+  'Authenticity': { high: string; medium: string; low: string };
+  'Social Skills': { high: string; medium: string; low: string };
+  'Positivity': { high: string; medium: string; low: string };
+};
+
+const getDimensionAnalysis = (dimension: keyof DimensionAnalyses, score: number) => {
+    const analyses: DimensionAnalyses = {
       'Emotional Intelligence': {
         high: 'You excel at understanding and managing emotions, both your own and others\'.',
         medium: 'You have a good grasp of emotional dynamics but could develop more consistency.',
@@ -249,7 +257,7 @@ const Results: React.FC = () => {
                   <CategoryScore>{dimensionScore}%</CategoryScore>
                 </CategoryTitle>
                 <CategoryDescription>
-                  {getDimensionAnalysis(dimension, dimensionScore)}
+                  {getDimensionAnalysis(dimension as keyof DimensionAnalyses, dimensionScore)}
                 </CategoryDescription>
               </Category>
             );
