@@ -45,8 +45,7 @@ const Subtitle = styled.p`
 `;
 
 function App() {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<number[]>([]);
+
 
   return (
     <Router>
