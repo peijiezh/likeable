@@ -14,6 +14,10 @@ export default defineConfig({
       output: {
         manualChunks: undefined
       }
+    },
+    commonjsOptions: {
+      include: [/node_modules/],
+      extensions: ['.js', '.ts', '.tsx']
     }
   },
 })
