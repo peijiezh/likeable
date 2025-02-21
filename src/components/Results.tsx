@@ -88,7 +88,11 @@ const PentagonContainer = styled.div`
   position: relative;
 `;
 
-const Pentagon: React.FC<{ scores: Record<string, number> }> = ({ scores }) => {
+interface PentagonProps {
+  scores: Record<string, number>;
+}
+
+const Pentagon: React.FC<PentagonProps> = ({ scores }) => {
   const dimensions = Object.keys(scores);
   const centerX = 200;
   const centerY = 200;
@@ -122,7 +126,6 @@ const Pentagon: React.FC<{ scores: Record<string, number> }> = ({ scores }) => {
 
   return (
     <svg viewBox="0 0 400 400" style={{ width: '100%', height: 'auto' }}>
-      {/* Grid lines */}
       {gridLines.map((path, index) => (
         <path
           key={`grid-${index}`}
@@ -133,7 +136,6 @@ const Pentagon: React.FC<{ scores: Record<string, number> }> = ({ scores }) => {
         />
       ))}
       
-      {/* Score pentagon */}
       <path
         d={pathData}
         fill="rgba(66, 153, 225, 0.3)"
@@ -141,7 +143,6 @@ const Pentagon: React.FC<{ scores: Record<string, number> }> = ({ scores }) => {
         strokeWidth="2"
       />
       
-      {/* Dimension labels */}
       {dimensions.map((dimension, index) => {
         const labelPoint = getPointCoordinates(index, 120);
         const angle = (360 * index) / 5 - 90;
@@ -164,6 +165,14 @@ const Pentagon: React.FC<{ scores: Record<string, number> }> = ({ scores }) => {
   );
 };
 
+type DimensionAnalyses = {
+  'Emotional Intelligence': { high: string; medium: string; low: string };
+  'Communication': { high: string; medium: string; low: string };
+  'Authenticity': { high: string; medium: string; low: string };
+  'Social Skills': { high: string; medium: string; low: string };
+  'Positivity': { high: string; medium: string; low: string };
+};
+
 const Results: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -175,20 +184,12 @@ const Results: React.FC = () => {
 
   const { dimensionScores } = location.state as LocationState;
 
-  const calculateDimensionScore = (scores: number[]) => {
+  const calculateDimensionScore = (scores: number[]): number => {
     const total = scores.reduce((sum, score) => sum + score, 0);
     return Math.round((total / (scores.length * 4)) * 100);
   };
 
-  type DimensionAnalyses = {
-  'Emotional Intelligence': { high: string; medium: string; low: string };
-  'Communication': { high: string; medium: string; low: string };
-  'Authenticity': { high: string; medium: string; low: string };
-  'Social Skills': { high: string; medium: string; low: string };
-  'Positivity': { high: string; medium: string; low: string };
-};
-
-const getDimensionAnalysis = (dimension: keyof DimensionAnalyses, score: number) => {
+  const getDimensionAnalysis = (dimension: keyof DimensionAnalyses, score: number): string => {
     const analyses: DimensionAnalyses = {
       'Emotional Intelligence': {
         high: 'You excel at understanding and managing emotions, both your own and others\'.',
@@ -222,7 +223,7 @@ const getDimensionAnalysis = (dimension: keyof DimensionAnalyses, score: number)
     return analyses[dimension].low;
   };
 
-  const handleRetake = () => {
+  const handleRetake = (): void => {
     navigate('/');
   };
 

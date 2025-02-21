@@ -1,74 +1,92 @@
-Readme
-
 # Likeability Test Website
 
-A modern, user-friendly web application that helps individuals assess and understand their likeability across different dimensions. The test provides insights into personal strengths and areas for improvement through an interactive questionnaire and visually appealing results.
+## Project Structure
 
-## Features
+### Directory Structure
+```
+├── public/
+│   ├── questions.csv     # Question data storage
+│   └── vite.svg         # Vite logo,it appears in the browser's tab bar, bookmarks, and other places where website icons are displayed
 
-### Core Functionality
-- Sequential question-based assessment
-- Visual results display using a pentagon diagram
-- Detailed dimension-specific feedback
-- Easy question management through CSV
+├── src/
+│   ├── components/      # React components
+│   │   ├── Welcome.tsx  # Landing page
+│   │   ├── Test.tsx     # Test interface
+│   │   └── Results.tsx  # Results visualization
+│   ├── App.tsx         # Main application component, 标题文字啥的都在这里
+│   └── main.tsx        # Application entry point
+└── package.json        # Project dependencies and scripts
+```
 
-### User Experience
-- Clean, minimalist Apple-style UI design
-- Simple, intuitive test progression
-- Clear result visualization
-- Responsive design for all devices
+### Component Architecture
 
-## Technical Overview
+1. **App.tsx**
+   - Main application container
+   - Implements routing using React Router
+   - Provides consistent layout with header
 
-### Architecture
-- Frontend-focused application
-- Static site deployment on Vercel
-- CSV-based question management for easy maintenance
+2. **Welcome Component**
+   - Landing page with test introduction
+   - Simple, clean interface with start button
+   - Routes to test component on start
 
-### Data Structure
-- 20 questions organized across 5 dimensions:
-  - Emotional Intelligence (4 questions)
-  - Communication (4 questions)
-  - Authenticity (4 questions)
-  - Social Skills (4 questions)
-  - Positivity (4 questions)
+3. **Test Component**
+   - Handles question display and navigation
+   - Features:
+     - Progress bar
+     - Question cards with 5-point Likert scale
+     - Previous/Next navigation
+     - Answer state management
 
-### Question Management
-- Questions stored in `questions.csv`
-- Easy to maintain and update
-- CSV format includes:
-  - Question ID (1-20)
-  - Dimension (one of the five categories)
-  - Question Text (carefully crafted statements)
+4. **Results Component**
+   - Displays test results and analysis
+   - Features:
+     - Pentagon visualization of dimension scores
+     - Detailed dimension-specific feedback
+     - Overall likeability score
+     - Option to retake test
 
-## Development
+### Data Management
 
-### Prerequisites
-- Node.js
-- npm/yarn
+1. **Question Storage**
+   - Questions stored in CSV format
+   - Structure:
+     - Question ID
+     - Dimension category
+     - Question text
 
-### Setup
-1. Clone the repository
-2. Install dependencies
-3. Run development server
+2. **State Management**
+   - Local state using React useState
+   - Navigation state handled by React Router
+   - Score calculation and analysis in Results component
 
-### Deployment
-- Automated deployment through Vercel
-- Zero-configuration setup
+### Styling
 
-## Future Enhancements
-- User accounts and history tracking
-- Detailed analytics and trends
-- Comparative analysis
-- Personalized improvement suggestions
+- Emotion (CSS-in-JS) for component styling
+- Responsive design with mobile considerations
+- Consistent color scheme and typography
+- Styled components for reusable UI elements
 
-## Maintenance
+### Key Features
 
-### Updating Questions
-To modify the test questions:
-1. Open `questions.csv`
-2. Edit questions while maintaining the format
-3. Save the file
-4. Deploy changes
+1. **Assessment Flow**
+   - Sequential question presentation
+   - Answer validation
+   - Progress tracking
 
-No additional code changes required for question updates.
+2. **Results Analysis**
+   - Dimension-based scoring
+   - Pentagon visualization
+   - Personalized feedback based on scores
+
+3. **User Experience**
+   - Intuitive navigation
+   - Visual feedback for selections
+   - Responsive design for all devices
+
+### Technical Stack
+
+- React with TypeScript
+- Emotion for styling
+- React Router for navigation
+- Vite as build tool

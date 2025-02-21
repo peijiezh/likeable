@@ -90,7 +90,7 @@ const Progress = styled.div<{ width: number }>`
 
 const Test: React.FC = () => {
   const navigate = useNavigate();
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [answers, setAnswers] = useState<number[]>(new Array(20).fill(-1));
   const [questions, setQuestions] = useState<Question[]>([]);
 
@@ -111,7 +111,7 @@ const Test: React.FC = () => {
         console.error('Error loading questions:', error);
       }
     };
-    loadQuestions();
+    void loadQuestions();
   }, []);
 
   const options = [
@@ -122,24 +122,26 @@ const Test: React.FC = () => {
     "Strongly Agree"
   ];
 
-  const handleAnswer = (optionIndex: number) => {
-    const newAnswers = [...answers];
-    newAnswers[currentQuestion] = optionIndex;
-    setAnswers(newAnswers);
+  const handleAnswer = (optionIndex: number): void => {
+    setAnswers(prev => {
+      const newAnswers = [...prev];
+      newAnswers[currentQuestion] = optionIndex;
+      return newAnswers;
+    });
   };
 
-  const handleNext = () => {
+  const handleNext = (): void => {
     if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
+      setCurrentQuestion(prev => prev + 1);
     } else if (questions.length > 0) {
-      const dimensionScores = questions.reduce((acc, q, index) => {
+      const dimensionScores = questions.reduce<Record<string, number[]>>((acc, q, index) => {
         const dimension = q.dimension;
         if (!acc[dimension]) acc[dimension] = [];
         if (answers[index] !== undefined && answers[index] !== -1) {
           acc[dimension].push(answers[index]);
         }
         return acc;
-      }, {} as Record<string, number[]>);
+      }, {});
 
       if (Object.keys(dimensionScores).length > 0) {
         navigate('/results', { 
@@ -154,9 +156,9 @@ const Test: React.FC = () => {
     }
   };
 
-  const handlePrevious = () => {
+  const handlePrevious = (): void => {
     if (currentQuestion > 0) {
-      setCurrentQuestion(currentQuestion - 1);
+      setCurrentQuestion(prev => prev - 1);
     }
   };
 

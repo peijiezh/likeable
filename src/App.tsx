@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import styled from '@emotion/styled';
 import Welcome from './components/Welcome';
 import Test from './components/Test';
@@ -55,23 +55,16 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
   </AppContainer>
 );
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Layout><Welcome /></Layout>
-  },
-  {
-    path: '/test',
-    element: <Layout><Test /></Layout>
-  },
-  {
-    path: '/results',
-    element: <Layout><Results /></Layout>
-  }
-]);
-
-function App() {
-  return <RouterProvider router={router} />;
-}
+const App: React.FC = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout><Welcome /></Layout>} />
+        <Route path="/test" element={<Layout><Test /></Layout>} />
+        <Route path="/results" element={<Layout><Results /></Layout>} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
 export default App;
