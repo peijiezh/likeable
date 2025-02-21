@@ -3,10 +3,11 @@ import react from '@vitejs/plugin-react'
 
 const config = {
   server: {
-    port: 3000
+    port: 3000,
+    historyApiFallback: true
   },
   plugins: [react()],
-  base: '/',
+  base: './',
   build: {
     outDir: 'dist',
     sourcemap: true,
