@@ -6,9 +6,16 @@ import Results from './components/Results';
 
 const AppContainer = styled.div`
   max-width: 1200px;
+  width: 100%;
+  min-height: 100vh;  // Added to take full viewport height
   margin: 0 auto;
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;  // Added to center vertically
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  
   @media (max-width: 768px) {
     padding: 1rem;
   }
@@ -17,8 +24,14 @@ const AppContainer = styled.div`
 const Header = styled.header`
   text-align: center;
   margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 120px;
   @media (max-width: 768px) {
     margin-bottom: 1.5rem;
+    min-height: 100px;
   }
 `;
 
@@ -46,7 +59,7 @@ const Subtitle = styled.p`
 const Layout = ({ children }: { children: React.ReactNode }) => (
   <AppContainer>
     <Header>
-      <Title>Likeability Test</Title>
+      <Title>Likeable Person Test</Title>
       <Subtitle>
         Discover your personal likeability profile across five key dimensions
       </Subtitle>

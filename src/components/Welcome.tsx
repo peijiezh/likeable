@@ -7,9 +7,12 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  padding: 2rem;
+  min-height: calc(100vh - 200px);
+  margin: 0 auto;
+  padding: 0 2rem;
   text-align: center;
+  width: 100%;
+  max-width: 800px;
 `;
 
 const Title = styled.h1`
@@ -50,7 +53,7 @@ const Welcome: React.FC = () => {
 
   return (
     <Container>
-      <Title>Welcome to the Likeability Test</Title>
+      <Title>Welcome to the Likeable Person Test</Title>
       <Description>
         Discover your personal likeability score through this comprehensive assessment.
         Answer 20 questions honestly to receive detailed insights about your social

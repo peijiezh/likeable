@@ -3,19 +3,32 @@
 ## Project Structure
 
 ### Directory Structure
-```
-├── public/
-│   ├── questions.csv     # Question data storage
-│   └── vite.svg         # Vite logo,it appears in the browser's tab bar, bookmarks, and other places where website icons are displayed
 
-├── src/
-│   ├── components/      # React components
-│   │   ├── Welcome.tsx  # Landing page
-│   │   ├── Test.tsx     # Test interface
-│   │   └── Results.tsx  # Results visualization
-│   ├── App.tsx         # Main application component, 标题文字啥的都在这里
-│   └── main.tsx        # Application entry point
-└── package.json        # Project dependencies and scripts
+```
+├── public/                  # Public assets directory
+│   ├── questions.csv       # Question data storage for the test
+│   └── vite.svg           # Vite logo for browser tab and bookmarks
+│
+├── src/                    # Source code directory
+│   ├── components/        # React component directory
+│   │   ├── Welcome.tsx    # Landing page with test introduction
+│   │   ├── Test.tsx       # Test interface with question display and navigation
+│   │   └── Results.tsx    # Results visualization and score analysis
+│   ├── App.css           # Global application styles
+│   ├── App.tsx           # Main application component with routing and layout
+│   ├── index.css         # Global CSS reset and base styles
+│   ├── main.tsx          # Application entry point
+│   └── vite-env.d.ts     # TypeScript declarations for Vite
+│
+├── .gitignore             # Git ignore configuration
+├── eslint.config.js       # ESLint configuration for code linting
+├── index.html             # HTML entry point
+├── package.json           # Project dependencies and scripts
+├── package-lock.json      # Locked versions of dependencies
+├── tsconfig.json          # Main TypeScript configuration
+├── tsconfig.app.json      # TypeScript config for application
+├── tsconfig.node.json     # TypeScript config for Node.js environment
+└── vite.config.ts         # Vite build tool configuration
 ```
 
 ### Component Architecture
