@@ -97,7 +97,7 @@ const Test: React.FC = () => {
   useEffect(() => {
     const loadQuestions = async () => {
       try {
-        const response = await fetch('/questions.csv');
+        const response = await fetch('./questions.csv');
         const csvText = await response.text();
         const lines = csvText.split('\n').slice(1); // Skip header
         const parsedQuestions = lines
