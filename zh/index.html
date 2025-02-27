@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L0MV73NWMP"></script>
     <script>
@@ -14,40 +14,38 @@
 
       gtag('config', 'G-L0MV73NWMP');
     </script>
-    <title>Likable Person Test</title>
-
+    <title>个人魅力测试</title>
 </head>
 <body>
     <!-- Header Section -->
     <header>
-        <h1>Likable Person Test</h1>
+        <h1>个人魅力测试</h1>
         <div class="lang-select">
             <div class="lang-list">
-                <a href="/" class="active" data-lang="en">English</a>
-                <a href="es/index.html" data-lang="es">Español</a>
-                <a href="fr/index.html" data-lang="fr">Français</a>
-                <a href="de/index.html" data-lang="de">Deutsch</a>
-                <a href="zh/index.html" data-lang="zh">中文</a>
+                <a href="../index.html" data-lang="en">English</a>
+                <a href="../es/index.html" data-lang="es">Español</a>
+                <a href="../fr/index.html" data-lang="fr">Français</a>
+                <a href="../de/index.html" data-lang="de">Deutsch</a>
+                <a href="zh/index.html" class="active" data-lang="zh">中文</a>
             </div>
         </div>
     </header>
 
     <!-- Main Content Container -->
     <div class="container">
-
         <!-- Short Introduction -->
         <section>
-            <h2>Welcome to the Likable Person Test!</h2>
-            <p>This test is designed to assess various aspects of your likability based on a series of 25 questions. Your answers will help determine which traits you excel in and which ones you could improve.</p>
+            <h2>欢迎参加个人魅力测试！</h2>
+            <p>本测试通过25个问题来评估您的个人魅力的各个方面。您的答案将帮助确定您擅长的特质以及可以改进的方面。</p>
         </section>
 
         <!-- Test Section -->
         <section class="test-section">
-            <h2>Start the Test</h2>
+            <h2>开始测试</h2>
             <div id="test-container">
                 <div class="progress-bar">
                     <div class="progress" id="progress"></div>
-                    <span id="question-counter">Question 1/25</span>
+                    <span id="question-counter">问题 1/25</span>
                 </div>
 
                 <div class="question-container">
@@ -55,8 +53,8 @@
                     
                     <div class="likert-scale">
                         <div class="scale-labels">
-                            <span>Strongly Disagree</span>
-                            <span>Strongly Agree</span>
+                            <span>完全不同意</span>
+                            <span>完全同意</span>
                         </div>
                         <div class="radio-group">
                             <label class="radio-container">
@@ -83,8 +81,8 @@
                     </div>
 
                     <div class="navigation-buttons">
-                        <button id="prev-btn" disabled>Previous</button>
-                        <button id="next-btn">Next</button>
+                        <button id="prev-btn" disabled>上一题</button>
+                        <button id="next-btn">下一题</button>
                     </div>
                 </div>
             </div>
@@ -92,34 +90,34 @@
 
         <!-- Results Section -->
         <section id="results-section" class="hidden">
-            <h2>Your Likability Profile</h2>
+            <h2>您的个人魅力分析</h2>
             <div class="results-container">
                 <canvas id="pentagon-chart" width="400" height="400"></canvas>
                 <div id="dimension-scores"></div>
                 <div id="result-explanation"></div>
-                <button id="retest-btn" class="retest-button">Take the Test Again</button>
+                <button id="retest-btn" class="retest-button">重新测试</button>
             </div>
         </section>
 
         <!-- Explanation of 5 Dimensions -->
         <section class="explanation-section">
-            <h2>5 Dimensions of Likability</h2>
+            <h2>个人魅力的五个维度</h2>
             <ul>
-                <li><strong>1. Warmth</strong>: How approachable and friendly you are to others.</li>
-                <li><strong>2. Competence</strong>: How capable and skilled others perceive you to be.</li>
-                <li><strong>3. Emotional Intelligence</strong>: How well you understand and respond to the emotions of others.</li>
-                <li><strong>4. Charisma</strong>: Your ability to attract, influence, and engage others through charm and personality.</li>
-                <li><strong>5. Authenticity</strong>: How genuine and trustworthy others find you.</li>
+                <li><strong>1. 温暖度</strong>：您对他人的友善和亲和力。</li>
+                <li><strong>2. 能力</strong>：他人对您能力和技能的认知。</li>
+                <li><strong>3. 情商</strong>：您理解和回应他人情绪的能力。</li>
+                <li><strong>4. 魅力</strong>：您通过个性魅力吸引、影响和感染他人的能力。</li>
+                <li><strong>5. 真诚</strong>：他人对您的信任度和真实性的感知。</li>
             </ul>
         </section>
-
     </div>
 
     <!-- Footer -->
     <footer>
-        <p>Thank you for taking the test, and remember – everyone's likable in their own way!</p>
+        <p>感谢您参加测试 - 记住，每个人都有自己独特的魅力！</p>
     </footer>
 
-    <script src="js/main.js"></script>
+    <!-- Load JavaScript at the end of the body -->
+    <script src="../js/main.js"></script>
 </body>
 </html>

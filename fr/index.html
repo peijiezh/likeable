@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/styles.css">
-    <!-- Google tag (gtag.js) -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <!-- Google Analytics code -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L0MV73NWMP"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -14,36 +14,31 @@
 
       gtag('config', 'G-L0MV73NWMP');
     </script>
-    <title>Likable Person Test</title>
-
+    <title>Test de Personnalité Attachante</title>
+    <!-- Keep all existing styles from index.html -->
 </head>
 <body>
-    <!-- Header Section -->
     <header>
-        <h1>Likable Person Test</h1>
+        <h1>Test de Personnalité Attachante</h1>
         <div class="lang-select">
             <div class="lang-list">
-                <a href="/" class="active" data-lang="en">English</a>
-                <a href="es/index.html" data-lang="es">Español</a>
-                <a href="fr/index.html" data-lang="fr">Français</a>
-                <a href="de/index.html" data-lang="de">Deutsch</a>
-                <a href="zh/index.html" data-lang="zh">中文</a>
+                <a href="../index.html" data-lang="en">English</a>
+                <a href="../es/index.html" data-lang="es">Español</a>
+                <a href="fr/index.html" class="active" data-lang="fr">Français</a>
+                <a href="../de/index.html" data-lang="de">Deutsch</a>
+                <a href="../zh/index.html" data-lang="zh">中文</a>
             </div>
         </div>
     </header>
 
-    <!-- Main Content Container -->
     <div class="container">
-
-        <!-- Short Introduction -->
         <section>
-            <h2>Welcome to the Likable Person Test!</h2>
-            <p>This test is designed to assess various aspects of your likability based on a series of 25 questions. Your answers will help determine which traits you excel in and which ones you could improve.</p>
+            <h2>Bienvenue au Test de Personnalité Attachante !</h2>
+            <p>Ce test comprend 25 questions pour évaluer votre personnalité attachante. Vos réponses nous aideront à identifier vos points forts et les domaines à améliorer.</p>
         </section>
 
-        <!-- Test Section -->
         <section class="test-section">
-            <h2>Start the Test</h2>
+            <h2>Commencer le Test</h2>
             <div id="test-container">
                 <div class="progress-bar">
                     <div class="progress" id="progress"></div>
@@ -55,8 +50,8 @@
                     
                     <div class="likert-scale">
                         <div class="scale-labels">
-                            <span>Strongly Disagree</span>
-                            <span>Strongly Agree</span>
+                            <span>Pas du tout d'accord</span>
+                            <span>Tout à fait d'accord</span>
                         </div>
                         <div class="radio-group">
                             <label class="radio-container">
@@ -83,43 +78,38 @@
                     </div>
 
                     <div class="navigation-buttons">
-                        <button id="prev-btn" disabled>Previous</button>
-                        <button id="next-btn">Next</button>
+                        <button id="prev-btn" disabled>Précédent</button>
+                        <button id="next-btn">Suivant</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Results Section -->
         <section id="results-section" class="hidden">
-            <h2>Your Likability Profile</h2>
+            <h2>Votre Profil de Personnalité</h2>
             <div class="results-container">
                 <canvas id="pentagon-chart" width="400" height="400"></canvas>
                 <div id="dimension-scores"></div>
                 <div id="result-explanation"></div>
-                <button id="retest-btn" class="retest-button">Take the Test Again</button>
+                <button id="retest-btn" class="retest-button">Refaire le Test</button>
             </div>
         </section>
 
-        <!-- Explanation of 5 Dimensions -->
         <section class="explanation-section">
-            <h2>5 Dimensions of Likability</h2>
+            <h2>Les Cinq Dimensions de la Personnalité Attachante</h2>
             <ul>
-                <li><strong>1. Warmth</strong>: How approachable and friendly you are to others.</li>
-                <li><strong>2. Competence</strong>: How capable and skilled others perceive you to be.</li>
-                <li><strong>3. Emotional Intelligence</strong>: How well you understand and respond to the emotions of others.</li>
-                <li><strong>4. Charisma</strong>: Your ability to attract, influence, and engage others through charm and personality.</li>
-                <li><strong>5. Authenticity</strong>: How genuine and trustworthy others find you.</li>
+                <li><strong>1. Chaleur</strong> : Votre capacité à être amical et accueillant envers les autres.</li>
+                <li><strong>2. Compétence</strong> : Comment les autres perçoivent vos capacités et votre fiabilité.</li>
+                <li><strong>3. Intelligence Émotionnelle</strong> : Votre capacité à comprendre et gérer les émotions.</li>
+                <li><strong>4. Charisme</strong> : Votre capacité à attirer et influencer positivement les autres.</li>
+                <li><strong>5. Authenticité</strong> : Votre niveau de sincérité et de cohérence dans vos actions.</li>
             </ul>
         </section>
-
     </div>
 
-    <!-- Footer -->
     <footer>
-        <p>Thank you for taking the test, and remember – everyone's likable in their own way!</p>
+        <p>Merci d'avoir participé au test. N'oubliez pas - chacun a son propre charme unique !</p>
     </footer>
-
-    <script src="js/main.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 </html>
