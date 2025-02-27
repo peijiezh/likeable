@@ -1,0 +1,282 @@
+<div class="container">
+  <div class="welcome-section">
+    <!-- ... existing welcome content ... -->
+  </div>
+
+  <div class="test-section">
+    <!-- Add the test container here -->
+    <div id="test-container">
+      <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+        <span id="question-counter">Question 1/25</span>
+      </div>
+
+      <div class="question-container">
+        <p id="current-question"></p>
+        
+        <div class="likert-scale">
+          <div class="scale-labels">
+            <span>Strongly Disagree</span>
+            <span>Strongly Agree</span>
+          </div>
+          <div class="radio-group">
+            <label class="radio-container">
+              <input type="radio" name="answer" value="1">
+              <span>1</span>
+            </label>
+            <label class="radio-container">
+              <input type="radio" name="answer" value="2">
+              <span>2</span>
+            </label>
+            <label class="radio-container">
+              <input type="radio" name="answer" value="3">
+              <span>3</span>
+            </label>
+            <label class="radio-container">
+              <input type="radio" name="answer" value="4">
+              <span>4</span>
+            </label>
+            <label class="radio-container">
+              <input type="radio" name="answer" value="5">
+              <span>5</span>
+            </label>
+          </div>
+        </div>
+
+    <div class="navigation-buttons">
+      <button id="prev-btn" disabled>Previous</button>
+      <button id="next-btn">Next</button>
+    </div>
+  </div>
+</div>
+
+<style>
+/* ... existing styles ... */
+
+.test-section {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+#test-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 20px;
+  background: #eee;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.progress {
+  width: 4%;  /* (1/25 * 100) */
+  height: 100%;
+  background: #27ae60;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+#question-counter {
+  position: absolute;
+  right: 0;
+  top: -25px;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.question-container {
+  text-align: center;
+}
+
+#current-question {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+  color: #2c3e50;
+}
+
+.likert-scale {
+  margin: 30px 0;
+}
+
+.scale-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  color: #666;
+  font-size: 0.9em;
+}
+
+.radio-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.radio-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.radio-container input[type="radio"] {
+  margin: 10px 0;
+}
+
+.radio-container span {
+  background: #f5f6fa;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.radio-container:hover span {
+  background: #e8e8e8;
+}
+
+input[type="radio"]:checked + span {
+  background: #27ae60;
+  color: white;
+}
+
+.navigation-buttons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.navigation-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: #27ae60;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.navigation-buttons button:hover {
+  background: #219a52;
+}
+
+.navigation-buttons button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.hidden {
+  display: none;
+}
+</style>
+
+<script>
+// Load and handle questions
+let currentQuestion = 0;
+let answers = new Array(25).fill(3);  // Initialize all answers with 3
+let questions = [
+    // Warmth dimension
+    "I enjoy making others feel comfortable and welcome",
+    "I often show genuine interest in others' well-being",
+    "People find it easy to share their feelings with me",
+    "I'm known for being approachable and friendly",
+    "I naturally tend to be caring towards others",
+    
+    // Competence dimension
+    "I consistently deliver on my promises",
+    "I can be relied upon in difficult situations",
+    "I handle challenges with confidence",
+    "I'm good at finding solutions to problems",
+    "I take responsibility for my actions",
+    
+    // Emotional Intelligence dimension
+    "I can easily understand others' emotions",
+    "I manage my own emotions well",
+    "I'm good at resolving conflicts",
+    "I adapt well to different social situations",
+    "I'm aware of how my actions affect others",
+    
+    // Charisma dimension
+    "I can inspire and motivate others",
+    "I communicate my ideas clearly and effectively",
+    "I naturally draw people's attention in groups",
+    "I make others feel valued and important",
+    "I bring positive energy to social situations",
+    
+    // Authenticity dimension
+    "I stay true to my values and beliefs",
+    "I am honest about my strengths and weaknesses",
+    "I act consistently with what I say",
+    "I am genuine in my interactions with others",
+    "I take responsibility for my mistakes"
+];
+
+function showQuestion(index) {
+    if (index >= 0 && index < questions.length) {
+        document.getElementById('current-question').textContent = questions[index];
+        document.getElementById('question-counter').textContent = `Question ${index + 1}/${questions.length}`;
+        document.getElementById('progress').style.width = `${((index + 1) / questions.length) * 100}%`;
+        
+        // Clear all radio buttons
+        const radioButtons = document.querySelectorAll('input[name="answer"]');
+        radioButtons.forEach(radio => {
+            // Set radio button with value 3 as checked by default if no answer exists
+            radio.checked = radio.value === answers[index].toString();
+        });
+        
+        // Update button states
+        document.getElementById('prev-btn').disabled = index === 0;
+        document.getElementById('next-btn').textContent = index === questions.length - 1 ? 'Finish' : 'Next';
+    }
+}
+
+// Event Listeners
+document.getElementById('prev-btn').addEventListener('click', () => {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        showQuestion(currentQuestion);
+    }
+});
+
+document.getElementById('next-btn').addEventListener('click', () => {
+    const selectedAnswer = document.querySelector('input[name="answer"]:checked')?.value;
+    
+    if (selectedAnswer) {
+        answers[currentQuestion] = parseInt(selectedAnswer);
+        
+        if (currentQuestion < questions.length - 1) {
+            currentQuestion++;
+            showQuestion(currentQuestion);
+        } else {
+            calculateResults();
+        }
+    } else {
+        alert('Please select an answer before proceeding.');
+    }
+});
+
+// Initialize the test
+document.addEventListener('DOMContentLoaded', () => {
+    showQuestion(0);
+});
+
+function calculateResults() {
+    // TODO: Implement results calculation based on the 5 dimensions
+    console.log('Answers:', answers);
+    // Hide test container and show results
+    document.getElementById('test-container').classList.add('hidden');
+    // Show results container (to be implemented)
+}
+</script> 

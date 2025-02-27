@@ -1,22 +1,619 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L0MV73NWMP"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Likable Person Test</title>
+    <style>
+        body {
+            padding-top: 50px;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .language-selector {
+            margin-top: 10px;
+        }
+        .language-selector select {
+            padding: 5px;
+            font-size: 16px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        .test-section, .explanation-section {
+            margin-bottom: 20px;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            width: 100%;
+            position: static;
+        }
+        .lang-select {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+        }
+        .lang-list {
+            display: flex;
+            gap: 15px;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .lang-list a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-size: 0.9em;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        .lang-list a:hover {
+            background: #ecf0f1;
+        }
+        .lang-list a.active {
+            background: #27ae60;
+            color: white;
+        }
 
-      gtag('config', 'G-L0MV73NWMP');
+        /* Add test-specific styles */
+        #test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #eee;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .progress {
+            width: 4%;
+            height: 100%;
+            background: #27ae60;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        #question-counter {
+            position: absolute;
+            right: 0;
+            top: -25px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .question-container {
+            text-align: center;
+        }
+
+        #current-question {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .likert-scale {
+            margin: 30px 0;
+        }
+
+        .scale-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .radio-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .radio-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .radio-container input[type="radio"] {
+            margin: 10px 0;
+        }
+
+        .radio-container span {
+            background: #f5f6fa;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .radio-container:hover span {
+            background: #e8e8e8;
+        }
+
+        input[type="radio"]:checked + span {
+            background: #27ae60;
+            color: white;
+        }
+
+        .navigation-buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #27ae60;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .navigation-buttons button:hover {
+            background: #219a52;
+        }
+
+        .navigation-buttons button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #results-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .results-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        #dimension-scores {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .dimension-score {
+            background: #f5f6fa;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .dimension-score h3 {
+            color: #27ae60;
+            margin: 0 0 10px 0;
+        }
+
+        #result-explanation {
+            max-width: 800px;
+            text-align: left;
+            padding: 20px;
+            background: #f5f6fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>Likable Person Test</h1>
+        <div class="lang-select">
+            <!-- Replace select dropdown with horizontal list -->
+            <div class="lang-list">
+                <a href="#" data-lang="en">English</a>
+                <a href="#" data-lang="zh">中文</a>
+                <a href="#" data-lang="es">Español</a>
+                <a href="#" data-lang="ar">العربية</a>
+                <a href="#" data-lang="fr">Français</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <div class="container">
+
+        <!-- Short Introduction -->
+        <section>
+            <h2>Welcome to the Likable Person Test!</h2>
+            <p>This test is designed to assess various aspects of your likability based on a series of 20 questions. Your answers will help determine which traits you excel in and which ones you could improve.</p>
+        </section>
+
+        <!-- Test Section -->
+        <section class="test-section">
+            <h2>Start the Test</h2>
+            <div id="test-container">
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                    <span id="question-counter">Question 1/25</span>
+                </div>
+
+                <div class="question-container">
+                    <p id="current-question"></p>
+                    
+                    <div class="likert-scale">
+                        <div class="scale-labels">
+                            <span>Strongly Disagree</span>
+                            <span>Strongly Agree</span>
+                        </div>
+                        <div class="radio-group">
+                            <label class="radio-container">
+                                <input type="radio" name="answer" value="1">
+                                <span>1</span>
+                            </label>
+                            <label class="radio-container">
+                                <input type="radio" name="answer" value="2">
+                                <span>2</span>
+                            </label>
+                            <label class="radio-container">
+                                <input type="radio" name="answer" value="3">
+                                <span>3</span>
+                            </label>
+                            <label class="radio-container">
+                                <input type="radio" name="answer" value="4">
+                                <span>4</span>
+                            </label>
+                            <label class="radio-container">
+                                <input type="radio" name="answer" value="5">
+                                <span>5</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="navigation-buttons">
+                        <button id="prev-btn" disabled>Previous</button>
+                        <button id="next-btn">Next</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add this after the test-section and before the explanation-section -->
+        <section id="results-section" class="hidden">
+            <h2>Your Likability Profile</h2>
+            <div class="results-container">
+                <canvas id="pentagon-chart" width="400" height="400"></canvas>
+                <div id="dimension-scores">
+                    <!-- Scores will be inserted here -->
+                </div>
+                <div id="result-explanation">
+                    <!-- Explanation will be inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Explanation of 5 Dimensions -->
+        <section class="explanation-section">
+            <h2>5 Dimensions of Likability</h2>
+            <ul>
+                <li><strong>1. Warmth</strong>: How approachable and friendly you are to others.</li>
+                <li><strong>2. Competence</strong>: How capable and skilled others perceive you to be.</li>
+                <li><strong>3. Emotional Intelligence</strong>: How well you understand and respond to the emotions of others.</li>
+                <li><strong>4. Charisma</strong>: Your ability to attract, influence, and engage others through charm and personality.</li>
+                <li><strong>5. Authenticity</strong>: How genuine and trustworthy others find you.</li>
+            </ul>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Thank you for taking the test, and remember – everyone’s likable in their own way!</p>
+    </footer>
+
+    <script>
+        // Load and handle questions
+        let currentQuestion = 0;
+        let answers = new Array(25).fill(3);  // Initialize all answers with 3
+        let questions = [
+            // Warmth dimension
+            "I enjoy making others feel comfortable and welcome",
+            "I often show genuine interest in others' well-being",
+            "People find it easy to share their feelings with me",
+            "I'm known for being approachable and friendly",
+            "I naturally tend to be caring towards others",
+            
+            // Competence dimension
+            "I consistently deliver on my promises",
+            "I can be relied upon in difficult situations",
+            "I handle challenges with confidence",
+            "I'm good at finding solutions to problems",
+            "I take responsibility for my actions",
+            
+            // Emotional Intelligence dimension
+            "I can easily understand others' emotions",
+            "I manage my own emotions well",
+            "I'm good at resolving conflicts",
+            "I adapt well to different social situations",
+            "I'm aware of how my actions affect others",
+            
+            // Charisma dimension
+            "I can inspire and motivate others",
+            "I communicate my ideas clearly and effectively",
+            "I naturally draw people's attention in groups",
+            "I make others feel valued and important",
+            "I bring positive energy to social situations",
+            
+            // Authenticity dimension
+            "I stay true to my values and beliefs",
+            "I am honest about my strengths and weaknesses",
+            "I act consistently with what I say",
+            "I am genuine in my interactions with others",
+            "I take responsibility for my mistakes"
+        ];
+
+        function showQuestion(index) {
+            if (index >= 0 && index < questions.length) {
+                document.getElementById('current-question').textContent = questions[index];
+                document.getElementById('question-counter').textContent = `Question ${index + 1}/${questions.length}`;
+                document.getElementById('progress').style.width = `${((index + 1) / questions.length) * 100}%`;
+                
+                // Clear all radio buttons
+                const radioButtons = document.querySelectorAll('input[name="answer"]');
+                radioButtons.forEach(radio => {
+                    // Set radio button with value 3 as checked by default if no answer exists
+                    radio.checked = radio.value === answers[index].toString();
+                });
+                
+                // Update button states
+                document.getElementById('prev-btn').disabled = index === 0;
+                document.getElementById('next-btn').textContent = index === questions.length - 1 ? 'Finish' : 'Next';
+            }
+        }
+
+        // Event Listeners
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        });
+
+        document.getElementById('next-btn').addEventListener('click', () => {
+            const selectedAnswer = document.querySelector('input[name="answer"]:checked')?.value;
+            
+            if (selectedAnswer) {
+                answers[currentQuestion] = parseInt(selectedAnswer);
+                
+                if (currentQuestion < questions.length - 1) {
+                    currentQuestion++;
+                    showQuestion(currentQuestion);
+                } else {
+                    calculateResults();
+                }
+            } else {
+                alert('Please select an answer before proceeding.');
+            }
+        });
+
+        // Initialize the test
+        document.addEventListener('DOMContentLoaded', () => {
+            showQuestion(0);
+        });
+
+        function calculateResults() {
+            // Calculate average scores for each dimension
+            const dimensionScores = {
+                warmth: calculateDimensionAverage(0, 4),
+                competence: calculateDimensionAverage(5, 9),
+                emotionalIntelligence: calculateDimensionAverage(10, 14),
+                charisma: calculateDimensionAverage(15, 19),
+                authenticity: calculateDimensionAverage(20, 24)
+            };
+
+            // Hide test container and show results
+            document.getElementById('test-container').classList.add('hidden');
+            document.getElementById('results-section').classList.remove('hidden');
+
+            // Draw pentagon chart
+            drawPentagonChart(dimensionScores);
+            
+            // Display dimension scores
+            displayDimensionScores(dimensionScores);
+            
+            // Generate and display explanation
+            displayExplanation(dimensionScores);
+        }
+
+        function calculateDimensionAverage(start, end) {
+            const dimensionAnswers = answers.slice(start, end + 1);
+            const average = dimensionAnswers.reduce((a, b) => a + b, 0) / dimensionAnswers.length;
+            return Math.round(average * 10) / 10; // Round to 1 decimal place
+        }
+
+        function drawPentagonChart(scores) {
+            const canvas = document.getElementById('pentagon-chart');
+            const ctx = canvas.getContext('2d');
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = Math.min(centerX, centerY) - 50;
+
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw pentagon background
+            ctx.beginPath();
+            for (let i = 0; i < 5; i++) {
+                const angle = (i * 2 * Math.PI / 5) - Math.PI / 2;
+                const x = centerX + radius * Math.cos(angle);
+                const y = centerY + radius * Math.sin(angle);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            ctx.strokeStyle = '#ddd';
+            ctx.stroke();
+
+            // Draw score pentagon
+            const scoreValues = Object.values(scores);
+            ctx.beginPath();
+            for (let i = 0; i < 5; i++) {
+                const angle = (i * 2 * Math.PI / 5) - Math.PI / 2;
+                const score = scoreValues[i] / 5; // Normalize to 0-1
+                const x = centerX + radius * score * Math.cos(angle);
+                const y = centerY + radius * score * Math.sin(angle);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            ctx.fillStyle = 'rgba(39, 174, 96, 0.2)';
+            ctx.fill();
+            ctx.strokeStyle = '#27ae60';
+            ctx.stroke();
+
+            // Draw labels
+            const labels = ['Warmth', 'Competence', 'Emotional\nIntelligence', 'Charisma', 'Authenticity'];
+            ctx.font = '14px Arial';
+            ctx.fillStyle = '#333';
+            ctx.textAlign = 'center';
+            
+            for (let i = 0; i < 5; i++) {
+                const angle = (i * 2 * Math.PI / 5) - Math.PI / 2;
+                const x = centerX + (radius + 30) * Math.cos(angle);
+                const y = centerY + (radius + 30) * Math.sin(angle);
+                
+                // Handle multi-line label
+                const lines = labels[i].split('\n');
+                lines.forEach((line, index) => {
+                    ctx.fillText(line, x, y + (index * 20));
+                });
+            }
+        }
+
+        function displayDimensionScores(scores) {
+            const dimensionScores = document.getElementById('dimension-scores');
+            dimensionScores.innerHTML = '';
+
+            const dimensions = {
+                warmth: 'Warmth',
+                competence: 'Competence',
+                emotionalIntelligence: 'Emotional Intelligence',
+                charisma: 'Charisma',
+                authenticity: 'Authenticity'
+            };
+
+            for (const [key, label] of Object.entries(dimensions)) {
+                const score = scores[key];
+                const div = document.createElement('div');
+                div.className = 'dimension-score';
+                div.innerHTML = `
+                    <h3>${label}</h3>
+                    <p>Score: ${score}/5</p>
+                `;
+                dimensionScores.appendChild(div);
+            }
+        }
+
+        function displayExplanation(scores) {
+            const explanation = document.getElementById('result-explanation');
+            const averageScore = Object.values(scores).reduce((a, b) => a + b, 0) / 5;
+            
+            let strengthsText = '';
+            let areasForImprovement = '';
+            
+            // Identify strengths (scores >= 4) and areas for improvement (scores <= 3)
+            for (const [dimension, score] of Object.entries(scores)) {
+                if (score >= 4) {
+                    strengthsText += `${dimension.charAt(0).toUpperCase() + dimension.slice(1)}, `;
+                } else if (score <= 3) {
+                    areasForImprovement += `${dimension.charAt(0).toUpperCase() + dimension.slice(1)}, `;
+                }
+            }
+
+            // Remove trailing commas
+            strengthsText = strengthsText.replace(/, $/, '');
+            areasForImprovement = areasForImprovement.replace(/, $/, '');
+
+            explanation.innerHTML = `
+                <h3>Your Likability Profile Analysis</h3>
+                <p>Your overall likability score is ${averageScore.toFixed(1)} out of 5.</p>
+                ${strengthsText ? `<p><strong>Your Strengths:</strong> ${strengthsText}</p>` : ''}
+                ${areasForImprovement ? `<p><strong>Areas for Growth:</strong> ${areasForImprovement}</p>` : ''}
+                <p>This assessment suggests that you have a ${getOverallRating(averageScore)} level of likability. 
+                ${getRecommendations(scores)}</p>
+            `;
+        }
+
+        function getOverallRating(score) {
+            if (score >= 4.5) return 'very high';
+            if (score >= 4) return 'high';
+            if (score >= 3) return 'moderate';
+            if (score >= 2) return 'developing';
+            return 'emerging';
+        }
+
+        function getRecommendations(scores) {
+            let recommendations = '';
+            
+            if (scores.warmth <= 3) {
+                recommendations += 'Consider showing more empathy and friendliness in your interactions. ';
+            }
+            if (scores.competence <= 3) {
+                recommendations += 'Focus on developing your skills and reliability. ';
+            }
+            if (scores.emotionalIntelligence <= 3) {
+                recommendations += 'Work on understanding and managing emotions better. ';
+            }
+            if (scores.charisma <= 3) {
+                recommendations += 'Practice engaging and inspiring others more effectively. ';
+            }
+            if (scores.authenticity <= 3) {
+                recommendations += 'Try to be more genuine and consistent in your actions. ';
+            }
+
+            return recommendations || 'Keep maintaining your current strengths across all dimensions.';
+        }
     </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+</body>
 </html>
