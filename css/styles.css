@@ -1,6 +1,6 @@
 /* General Styles */
 body {
-    padding-top: 50px;
+    padding-top: 120px;
     font-family: Arial, sans-serif;
     margin: 0;
     background-color: #f4f4f9;
@@ -9,12 +9,16 @@ body {
 header {
     background-color: #4CAF50;
     color: white;
-    padding: 10px;
+    padding: 15px 0;
     text-align: center;
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
+}
+
+header h1 {
+    margin: 0 0 15px 0;
 }
 
 .container {
@@ -36,37 +40,36 @@ h2 {
 
 /* Language Selector */
 .lang-select {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1001;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
 }
 
 .lang-list {
     display: flex;
     gap: 15px;
-    background: white;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 15px;
+    border-radius: 25px;
 }
 
 .lang-list a {
-    color: #2c3e50;
+    color: white;
     text-decoration: none;
     font-size: 0.9em;
-    padding: 5px 10px;
-    border-radius: 3px;
+    padding: 5px 12px;
+    border-radius: 15px;
     transition: all 0.3s ease;
 }
 
 .lang-list a:hover {
-    background: #ecf0f1;
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .lang-list a.active {
-    background: #27ae60;
-    color: white;
+    background: white;
+    color: #4CAF50;
 }
 
 /* Test Container Styles */
@@ -292,4 +295,182 @@ footer a {
 footer a:hover {
     color: #45a049;
     text-decoration: underline;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    /* Header adjustments */
+    header {
+        padding: 10px 0;
+    }
+
+    header h1 {
+        font-size: 1.5em;
+        margin: 0 0 10px 0;
+    }
+
+    .lang-list {
+        gap: 8px;
+        padding: 5px 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .lang-list a {
+        font-size: 0.8em;
+        padding: 4px 8px;
+    }
+
+    /* Container adjustments */
+    .container {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    /* Test section adjustments */
+    #test-container {
+        padding: 10px;
+    }
+
+    #current-question {
+        font-size: 1em;
+        margin-bottom: 20px;
+    }
+
+    /* Likert scale adjustments */
+    .likert-scale {
+        margin: 20px 0;
+    }
+
+    .scale-labels {
+        font-size: 0.8em;
+    }
+
+    .radio-group {
+        gap: 5px;
+    }
+
+    .radio-container span {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9em;
+    }
+
+    /* Navigation buttons adjustments */
+    .navigation-buttons {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .navigation-buttons button {
+        padding: 8px 15px;
+        font-size: 0.9em;
+        width: 50%;
+    }
+
+    /* Results section adjustments */
+    #pentagon-chart {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
+
+    #dimension-scores {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .dimension-score {
+        padding: 10px;
+    }
+
+    /* Privacy notice adjustments */
+    .privacy-notice {
+        padding: 10px;
+        margin: 15px 0;
+    }
+
+    .privacy-notice p {
+        font-size: 0.8em;
+    }
+
+    /* Footer adjustments */
+    footer {
+        padding: 15px;
+        font-size: 0.9em;
+    }
+
+    footer p {
+        margin: 5px 0;
+    }
+}
+
+/* Extra small devices */
+@media screen and (max-width: 375px) {
+    body {
+        padding-top: 100px;
+    }
+
+    header h1 {
+        font-size: 1.3em;
+    }
+
+    .lang-list {
+        gap: 5px;
+    }
+
+    .lang-list a {
+        font-size: 0.75em;
+        padding: 3px 6px;
+    }
+
+    .radio-container span {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8em;
+    }
+
+    .scale-labels {
+        font-size: 0.7em;
+    }
+
+    #current-question {
+        font-size: 0.9em;
+    }
+}
+
+/* Ensure canvas is responsive */
+canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Fix for iOS Safari 100vh issue */
+@supports (-webkit-touch-callout: none) {
+    .container {
+        min-height: -webkit-fill-available;
+    }
+}
+
+/* Improve touch targets on mobile */
+button, 
+.radio-container,
+.lang-list a {
+    min-height: 44px;  /* Minimum touch target size */
+}
+
+/* Prevent text overflow */
+p, h1, h2, h3, span {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Ensure proper spacing in small screens */
+section {
+    margin-bottom: 1.5em;
+}
+
+/* Improve readability on mobile */
+p, li {
+    line-height: 1.5;
 }
