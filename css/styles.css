@@ -474,3 +474,76 @@ section {
 p, li {
     line-height: 1.5;
 }
+
+/* Explanation Section Styling */
+.explanation-section {
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 30px 0;
+}
+
+.explanation-section h2 {
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+}
+
+.explanation-section h3 {
+    color: #27ae60;
+    margin: 25px 0 15px;
+    font-size: 1.4em;
+}
+
+.dimension-details, .importance-section, .development-tips {
+    margin: 25px 0;
+}
+
+.intro-text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #34495e;
+    margin-bottom: 30px;
+}
+
+.explanation-section ul {
+    padding-left: 20px;
+    margin: 15px 0;
+}
+
+.explanation-section li {
+    margin: 10px 0;
+    line-height: 1.5;
+    color: #2c3e50;
+}
+
+.explanation-section p {
+    line-height: 1.6;
+    color: #34495e;
+    margin: 15px 0;
+}
+
+/* Responsive adjustments for the explanation section */
+@media screen and (max-width: 768px) {
+    .explanation-section {
+        padding: 15px;
+        margin: 20px 0;
+    }
+
+    .explanation-section h2 {
+        font-size: 1.5em;
+    }
+
+    .explanation-section h3 {
+        font-size: 1.2em;
+    }
+
+    .intro-text {
+        font-size: 1em;
+    }
+
+    .explanation-section li {
+        margin: 8px 0;
+    }
+}
