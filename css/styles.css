@@ -253,12 +253,43 @@ input[type="radio"]:checked + span {
     background-color: #219a52;
 }
 
-/* Footer */
+/* Privacy Notice Styling */
+.privacy-notice {
+    background-color: #f8f9fa;
+    border-left: 4px solid #4CAF50;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+.privacy-notice p {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+/* Updated Footer Styling */
 footer {
     text-align: center;
-    padding: 10px;
+    padding: 20px;
     background-color: #333;
     color: white;
     width: 100%;
     position: static;
+}
+
+footer p {
+    margin: 10px 0;
+}
+
+footer a {
+    color: #4CAF50;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #45a049;
+    text-decoration: underline;
 }
