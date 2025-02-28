@@ -221,15 +221,37 @@ const translations = {
         prev: '上一题',
         finish: '完成',
         questionCounter: '问题',
-        stronglyDisagree: '非常不同意',
-        stronglyAgree: '非常同意',
+        stronglyDisagree: '完全不同意',
+        stronglyAgree: '完全同意',
         pleaseSelect: '请先选择一个答案再继续。',
+        score: '分数',
+        analysisTitle: '您的个人魅力分析',
+        overallScore: '您的总分是',
+        strengths: '您的优势',
+        areasToImprove: '需要改进的方面',
+        evaluationText: '这个评估表明您具有',
+        levelText: '水平的个人魅力。',
         dimensions: {
             warmth: '温暖',
             competence: '能力',
             emotionalIntelligence: '情商',
             charisma: '魅力',
             authenticity: '真诚'
+        },
+        ratings: {
+            veryHigh: '非常高',
+            high: '高',
+            medium: '中等',
+            developing: '发展中',
+            basic: '基础'
+        },
+        recommendations: {
+            warmth: '尝试在互动中表现出更多的同理心和善意。',
+            competence: '专注于提高您的技能和可靠性。',
+            emotionalIntelligence: '努力提高理解和管理情绪的能力。',
+            charisma: '练习更有效地激励他人。',
+            authenticity: '努力在行动中保持更多的真实性和一致性。',
+            allGood: '继续保持您在各个方面的优势。'
         }
     },
     fr: {
@@ -240,12 +262,34 @@ const translations = {
         stronglyDisagree: 'Pas du tout d\'accord',
         stronglyAgree: 'Tout à fait d\'accord',
         pleaseSelect: 'Veuillez sélectionner une réponse avant de continuer.',
+        score: 'Score',
+        analysisTitle: 'Votre Analyse de Sympathie',
+        overallScore: 'Votre score global est de',
+        strengths: 'Vos Points Forts',
+        areasToImprove: 'Points à Améliorer',
+        evaluationText: 'Cette évaluation indique que vous avez un',
+        levelText: 'niveau de sympathie.',
         dimensions: {
             warmth: 'Chaleur',
             competence: 'Compétence',
             emotionalIntelligence: 'Intelligence Émotionnelle',
             charisma: 'Charisme',
             authenticity: 'Authenticité'
+        },
+        ratings: {
+            veryHigh: 'très élevé',
+            high: 'élevé',
+            medium: 'moyen',
+            developing: 'en développement',
+            basic: 'basique'
+        },
+        recommendations: {
+            warmth: 'Essayez de montrer plus d\'empathie et de gentillesse dans vos interactions.',
+            competence: 'Concentrez-vous sur l\'amélioration de vos compétences et de votre fiabilité.',
+            emotionalIntelligence: 'Travaillez à mieux comprendre et gérer les émotions.',
+            charisma: 'Pratiquez des façons plus efficaces d\'inspirer les autres.',
+            authenticity: 'Efforcez-vous d\'être plus authentique et cohérent.',
+            allGood: 'Continuez à maintenir vos points forts dans toutes les dimensions.'
         }
     },
     de: {
@@ -256,12 +300,34 @@ const translations = {
         stronglyDisagree: 'Stimme überhaupt nicht zu',
         stronglyAgree: 'Stimme voll zu',
         pleaseSelect: 'Bitte wählen Sie eine Antwort aus, bevor Sie fortfahren.',
+        score: 'Punktzahl',
+        analysisTitle: 'Ihre Sympathie-Analyse',
+        overallScore: 'Ihre Gesamtpunktzahl ist',
+        strengths: 'Ihre Stärken',
+        areasToImprove: 'Verbesserungsbereiche',
+        evaluationText: 'Diese Auswertung zeigt, dass Sie ein',
+        levelText: 'Niveau an Sympathie haben.',
         dimensions: {
             warmth: 'Wärme',
             competence: 'Kompetenz',
             emotionalIntelligence: 'Emotionale Intelligenz',
             charisma: 'Charisma',
             authenticity: 'Authentizität'
+        },
+        ratings: {
+            veryHigh: 'sehr hohes',
+            high: 'hohes',
+            medium: 'mittleres',
+            developing: 'sich entwickelndes',
+            basic: 'grundlegendes'
+        },
+        recommendations: {
+            warmth: 'Versuchen Sie, mehr Empathie und Freundlichkeit in Ihren Interaktionen zu zeigen.',
+            competence: 'Konzentrieren Sie sich darauf, Ihre Fähigkeiten und Zuverlässigkeit zu verbessern.',
+            emotionalIntelligence: 'Arbeiten Sie daran, Emotionen besser zu verstehen und zu handhaben.',
+            charisma: 'Üben Sie, andere effektiver zu inspirieren.',
+            authenticity: 'Bemühen Sie sich um mehr Authentizität und Konsistenz.',
+            allGood: 'Behalten Sie Ihre Stärken in allen Dimensionen bei.'
         }
     },
     es: {
@@ -272,12 +338,34 @@ const translations = {
         stronglyDisagree: 'Muy en desacuerdo',
         stronglyAgree: 'Muy de acuerdo',
         pleaseSelect: 'Por favor selecciona una respuesta antes de continuar.',
+        score: 'Puntuación',
+        analysisTitle: 'Tu Análisis de Simpatía',
+        overallScore: 'Tu puntuación general es',
+        strengths: 'Tus Fortalezas',
+        areasToImprove: 'Áreas para Mejorar',
+        evaluationText: 'Esta evaluación indica que tienes un',
+        levelText: 'nivel de simpatía.',
         dimensions: {
             warmth: 'Calidez',
             competence: 'Competencia',
             emotionalIntelligence: 'Inteligencia Emocional',
             charisma: 'Carisma',
             authenticity: 'Autenticidad'
+        },
+        ratings: {
+            veryHigh: 'muy alto',
+            high: 'alto',
+            medium: 'medio',
+            developing: 'en desarrollo',
+            basic: 'básico'
+        },
+        recommendations: {
+            warmth: 'Intenta mostrar más empatía y amabilidad en tus interacciones.',
+            competence: 'Enfócate en mejorar tus habilidades y confiabilidad.',
+            emotionalIntelligence: 'Trabaja en entender y manejar mejor las emociones.',
+            charisma: 'Practica formas más efectivas de inspirar a otros.',
+            authenticity: 'Esfuérzate por ser más auténtico y consistente.',
+            allGood: 'Continúa manteniendo tus fortalezas en todas las dimensiones.'
         }
     }
 };
