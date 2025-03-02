@@ -547,3 +547,24 @@ p, li {
         margin: 8px 0;
     }
 }
+
+/* Blog Link */
+.blog-link {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f0f7f0;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.blog-link a {
+    color: #27ae60;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.blog-link a:hover {
+    color: #219a52;
+    text-decoration: underline;
+}
